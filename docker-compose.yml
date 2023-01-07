@@ -101,3 +101,8 @@ volumes:
   media:
   pgdata:
   redisdata:
+
+networks:
+  default:
+    external: true
+    name: Deluxe
