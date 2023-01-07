@@ -39,7 +39,7 @@ services:
     volumes:
       - redisdata:/data
 
-  db:
+  pldb:
     image: docker.io/library/postgres:13
     container_name: postgres
     restart: unless-stopped
@@ -55,7 +55,7 @@ services:
     container_name: paperless-ngx
     restart: unless-stopped
     depends_on:
-      - db
+      - pldb
       - broker
       - gotenberg
       - tika
@@ -74,7 +74,7 @@ services:
     env_file: docker-compose.env
     environment:
       PAPERLESS_REDIS: redis://broker:6379
-      PAPERLESS_DBHOST: db
+      PAPERLESS_DBHOST: pldb
       PAPERLESS_TIKA_ENABLED: 1
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
